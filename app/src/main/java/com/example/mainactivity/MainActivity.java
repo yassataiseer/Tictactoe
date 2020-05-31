@@ -1,116 +1,320 @@
-package com.example.mainactivity;
+package com.example.suduko;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.google.android.material.snackbar.Snackbar;
 
-    private Button[][] buttons = new Button[3][3];
-    private boolean player1Turn  = true;
-
-    private int roundCount;
-    private int player1Points;
-    private int player2Points;
-    private TextView textViewPlayer1;
-    private TextView TextViewPlayer2;
-
+public class MainActivity extends AppCompatActivity {
+    int counter = 0;
+    int p1score = 0;
+    int p2score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textViewPlayer1 = findViewById(R.id.text_view_p1);
-        TextViewPlayer2 = findViewById(R.id.text_view_p2);
-        for (int i = 0; i<3;i++ ){
-            for (int j=0; j<3;j++){
-                String buttonID = "button_"+i+j;
-                int resID = getResources().getIdentifier(buttonID,"id",getPackageName());
-                buttons[i][j]= findViewById(resID);
-                buttons[i][j].setOnClickListener(this);
 
-            }
+        Button btn = (Button) findViewById(R.id.button_00);
+        Button btn2 = (Button) findViewById(R.id.button_01);
+        Button btn3 = (Button) findViewById(R.id.button_02);
+        Button btn4= (Button) findViewById(R.id.button_10);
+        Button btn5 = (Button) findViewById(R.id.button_11);
+        Button btn6 = (Button) findViewById(R.id.button_12);
+        Button btn7 = (Button) findViewById(R.id.button_20);
+        Button btn8 = (Button) findViewById(R.id.button_21);
+        Button btn9 = (Button) findViewById(R.id.button_22);
 
-        }
-        Button buttonReset = findViewById(R.id.button_reset);
-        buttonReset.setOnClickListener(new View.OnClickListener() {
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score+=4;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                    else if (p2score+p1score==45){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Draw";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+
+                } else{
+                    ((Button) v).setText("X");
+                    p1score+=4;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                    else if (p2score+p1score==45){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Draw";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+
+                }
+                }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                counter+=1;
 
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score+=9;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+
+
+                } else{
+                    ((Button) v).setText("X");
+                    p1score+=9;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+
+                }
             }
         });
-    }
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=2;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
 
-    @Override
-    public void onClick(View v) {
-        if(!((Button)v).getText().toString().equals("")){
-            return;
-        }
-        if (player1Turn){
-            ((Button)v).setText("X");
-        } else{
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=2;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
 
-            ((Button)v).setText("O");
-        }
-
-        roundCount++;
-        if (checkForWin()) {
-            if (player1Turn) {
-                player1Wins();
-            } else {
-                player2Wins();
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                }
             }
-        } else if (roundCount == 9) {
-            draw();
-        } else {
-            player1Turn = !player1Turn;
-        }
-    }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=3;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
 
-    private boolean checkForWin(){
-        String[][]field = new String [3][3];
-        for (int i =0;i<3;i++){
-            for (int j =0; j<3;j++){
-                field[i][j] = buttons[i][j].getText().toString();
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=3;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
 
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
 
+                }
             }
-        }
+        });
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=5;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
 
-        for (int i = 0; i < 3; i++) {
-            if (field[i][0].equals(field[i][1])
-                    && field[i][0].equals(field[i][2])
-                    && !field[i][0].equals("")) {
-                return true;
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=5;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                }
             }
-        }
-        for (int i = 0; i < 3; i++) {
-            if (field[0][i].equals(field[1][i])
-                    && field[0][i].equals(field[2][i])
-                    && !field[0][i].equals("")) {
-                return true;
+        });
+        btn6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=7;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=7;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                }
             }
-        }
-        if (field[0][0].equals(field[1][1])
-                && field[0][0].equals(field[2][2])
-                && !field[0][0].equals("")) {
-            return true;
-        }
-        if (field[0][2].equals(field[1][1])
-                && field[0][2].equals(field[2][0])
-                && !field[0][2].equals("")) {
-            return true;
-        }
-        return false;
-    }
-    }
-    private void player1Wins() {
-    }
-    private void player2Wins() {
-    }
-    private void draw() {
+        });
+        btn7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=8;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=8;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                }
+            }
+        });
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=1;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=1;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                }
+            }
+        });
+        btn9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                counter+=1;
+                if (counter%2==0){
+                    ((Button) v).setText("O");
+                    p2score +=6;
+                    if (p2score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player two won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                } else{
+                    ((Button) v).setText("X");
+                    p1score +=6;
+                    if (p1score==15){
+                        Context context = getApplicationContext();
+                        CharSequence text = "Player one won!";
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
+                    }
+                }
+            }
+        });
     }
 }
